@@ -1,38 +1,38 @@
 package com.demo.demo.smp.web;
 
-import com.demo.demo.ccp.entity.Customer;
-import com.demo.demo.ccp.repository.CustomerRepository;
+import com.demo.demo.smp.entity.Product;
+import com.demo.demo.smp.repository.ProductRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/products")
 public class ProductController {
 
-    private final CustomerRepository repo;
+    private final ProductRepository repo;
 
-    public ProductController(CustomerRepository repo) {
+    public ProductController(ProductRepository repo) {
         this.repo = repo;
     }
 
     @GetMapping("/all")
-    public List<Customer> findAll() {
+    public List<Product> findAll() {
         return repo.findAll();
     }
 
     @PostMapping
-    public Customer create(@RequestBody Customer product) {
+    public Product create(@RequestBody Product product) {
         return repo.save(product);
     }
 
     @GetMapping("/{id}")
-    public Customer findById(@PathVariable Long id) {
+    public Product findById(@PathVariable Long id) {
         return repo.findById(id).orElseThrow();
     }
 
     @PutMapping("/{id}")
-    public Customer update(@PathVariable Long id, @RequestBody Customer product) {
+    public Product update(@PathVariable Long id, @RequestBody Product product) {
         product.setId(id);
         return repo.save(product);
     }
