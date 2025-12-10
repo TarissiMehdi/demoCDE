@@ -1,7 +1,7 @@
 package com.demo.demo.ccp.web;
 
-import com.demo.demo.ccp.entity.Customer;
-import com.demo.demo.ccp.repository.CustomerRepository;
+import com.demo.demo.ccp.dto.CustomerDTO;
+import com.demo.demo.ccp.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,33 +12,31 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
     @GetMapping("/allyy")
-    public List<Customer> findAll() {
-        return customerRepository.findAllCustomers();
+    public List<CustomerDTO> findAll() {
+        return customerService.findAll();
     }
 
     @PostMapping
-    public Customer create(@RequestBody Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerDTO create(@RequestBody CustomerDTO customerDTO) {
+        return customerService.create(customerDTO);
     }
 
     @GetMapping("/{id}")
-    public Customer findById(@PathVariable Long id) {
-        return customerRepository.findById(id).orElseThrow();
+    public CustomerDTO findById(@PathVariable Long id) {
+        return customerService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public Customer update(@PathVariable Long id, @RequestBody Customer customer) {
-        customer.setId(id);
-        return customerRepository.save(customer);
+    public CustomerDTO update(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return customerService.update(id, customerDTO);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        customerRepository.deleteById(id);
+        customerService.delete(id);
     }
-
 
 }

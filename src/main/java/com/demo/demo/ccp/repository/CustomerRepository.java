@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
-    //query to select all customers
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    // query to select all customers
     @Query("SELECT c FROM Customer c")
     List<Customer> findAllCustomers();
+
+    java.util.Optional<Customer> findByEmail(String email);
 }
